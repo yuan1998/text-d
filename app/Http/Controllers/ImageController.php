@@ -57,7 +57,8 @@ class ImageController extends ApiController
         if(! $file)
             return err('img not');
         $r = $file->store('public');
-        return url(Storage::url($r));
+
+        return suc(url(Storage::url($r)));
         // return $this->resultReturn($r);
         // $fileName = self::createFileName()
         // url("/storage/app/public" .)

@@ -15,15 +15,19 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix'=> 'article'],function(){
 
-	Route::any('add','ArticleController@add');
+    Route::any('add','ArticleController@add');
 
-	Route::any('list','ArticleController@getList');
+    Route::any('list','ArticleController@getPaginate');
+
+    Route::any('fetch',"ArticleController@fetchId");
+
+    Route::any('change', 'ArticleController@change');
 
 });
 
 Route::group(['prefix' => 'img'],function(){
 
-	Route::any('upload',"ImageController@saveImage");
+    Route::any('upload',"ImageController@saveImage");
 
 
 });

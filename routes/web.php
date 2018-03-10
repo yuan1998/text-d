@@ -11,6 +11,22 @@
 |
 */
 
-Route::get('/', function () {
+
+
+// Route::group(['prefix'=>'admin'],function(){
+
+//     Route::get('{all}',function(){
+//         return view('admin.root');
+//     })->where(['all'=>'.*']);
+
+// });
+
+
+Route::get('/',function(){
     return view('admin.root');
 });
+
+Route::get('/test',function(){
+    return view('admin.views.article.create');
+});
+

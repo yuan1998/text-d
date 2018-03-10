@@ -107,9 +107,11 @@ class ApiController extends Controller
         return $data;
     }
 
-    public static function resultReturn($r,$type=null)
+    public static function resultReturn($r,$errMsg = 'error')
     {
-        return $r !== false ? suc($r) : err('error');
+
+        return $r !== false ? suc($r) : err($errMsg);
+
     }
 
 
@@ -210,6 +212,27 @@ class ApiController extends Controller
 
         return Storage::disk('public')->delete($name);
 
+    }
+
+
+
+    /**
+     *  THe MEthod is in The Id Fetch Data.
+     * @Yuan1998
+     * @DateTime 2018-03-10T17:03:48+0800
+     * @return   [type]                   [description]
+     */
+    public function fetchId()
+    {
+
+        $id = request('id');
+
+        if(!$id)
+            return err('Id is not');
+
+        $r =  $this->model->find($id);
+
+        return $this->resultReturn($r, 'not find date .');
     }
 
 }

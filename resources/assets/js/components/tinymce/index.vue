@@ -1,46 +1,133 @@
 <template>
-	<div class="">
-	 	 <quill-editor v-model="content"
+    <div class="">
+         <quill-editor :style="{heigth:height + 'px'}" v-model="content"
             ref="myQuillEditor"
             :options="editorOption">
-		 </quill-editor>
-	</div>
+         </quill-editor>
+    </div>
 </template>
 
 <script>
-	import 'quill/dist/quill.core.css'
-	import 'quill/dist/quill.snow.css'
-	import 'quill/dist/quill.bubble.css'
+    import 'quill/dist/quill.core.css'
+    import 'quill/dist/quill.snow.css'
+    import 'quill/dist/quill.bubble.css'
 
-	import {quillRedefine} from 'vue-quill-editor-upload'
- 	import {quillEditor} from 'vue-quill-editor'
+    import VueQuillEditor, { quillEditor, Quill } from 'vue-quill-editor'
+    import { ImageDrop } from 'quill-image-drop-module'
+    import ImageResize from 'quill-image-resize-module';
+    Quill.register('modules/imageDrop', ImageDrop);
+    Quill.register('modules/imageResize', ImageResize);
 
 
-	export default{
-		name:'tinymce',
-		components: {quillEditor, quillRedefine},
-		data(){
-			return {
-				content: '',
-        		editorOption: {}
-			}
-		},
-		created () {
+  /*
+    import {quillRedefine} from 'vue-quill-editor-upload'
 
-	      	this.editorOption = quillRedefine(
-        	{
-	          	// 图片上传的设置
-	          	uploadConfig: {
-	            	action: 'http://localhost:1234/api/img/upload',  // 必填参数 图片上传地址
-	            	// 必选参数  res是一个函数，函数接收的response为上传成功时服务器返回的数据
-	            	// 你必须把返回的数据中所包含的图片地址 return 回去
-	            	res: (respnse) => {
-	            		return respnse;
-              			// return respnse.info
-            		},
-            		name: 'img'  // 图片上传参数名
-          		}
-        	})
-	    }
-	}
+    // import ImageResize from 'quill-image-resize-module'
+
+    // console.log(Quill.register());
+    // Quill.register('modules/imageResize', ImageResize);
+
+    */
+
+
+    import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    // import ImageResize from 'quill-image-resize-module'
+
+    Quill.register('modules/ImageExtend', ImageExtend)
+    // use resize module
+    // Quill.register('modules/ImageResize', ImageResize)
+
+
+    // console.log(ImageResize);
+
+    export default{
+        name:'tinymce',
+        props:{
+            edit:{
+                type: String,
+            },
+            height:{
+                type:Number,
+                default:500,
+            }
+        },
+        components: {quillEditor},
+        data(){
+            return {
+                content:'',
+                editorOption: {
+                    modules: {
+                        toolbar: {
+                            container: container,
+                            handlers: {
+                                'image': function () {
+                                    QuillWatch.emit(this.quill.id)
+                                }
+                            }
+                        },
+                        history: {
+                            delay: 1000,
+                            maxStack: 50,
+                            userOnly: false
+                        },
+                        imageDrop: true,
+                        ImageExtend: {
+                            name: 'img',
+                            size: 2,  // 单位为M, 1M = 1024KB
+                            action: "http://localhost:1234/api/img/upload",
+                            headers: (xhr) => {
+                            },
+                            response: (res) => {
+                                return res.data;
+                            },
+                            sizeError:(res)=>{
+                                this.$message({
+                                    type:'error',
+                                    message:'上传图片太大了.'
+                                })
+                            },
+                            success:(res)=>{
+                                this.$message({
+                                    type:'success',
+                                    message:'上传成功.'
+                                })
+                            },
+                            error:(res)=>{
+                                this.$message({
+                                    type:'error',
+                                    message:"上传失败,请重新上传或联系程序员."
+                                })
+                            }
+                        },
+                        imageResize: {
+                            displayStyles: {
+                                backgroundColor: 'black',
+                                border: 'none',
+                                color: 'white'
+                            },
+                            modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+                        }
+                    }
+                }
+            }
+        },
+        created(){
+            console.log(this.edit);
+        },
+        watch:{
+            content(val){
+                this.$emit('syncContent',val);
+            },
+            edit(val){
+                if(val == '' || val == this.content)
+                    return;
+                this.content = val;
+                // console.log(val , '2');
+            }
+        }
+    }
 </script>
+
+<style>
+
+</style>

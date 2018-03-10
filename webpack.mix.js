@@ -11,14 +11,5 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.webpackConfig({
-    resolve: {
-    	extensions: [".js", ".json",'.vue','.scss','index.js'],
-		alias: {
-			Admin: path.resolve(__dirname, 'resources/assets/js')
-		}
-	}
-});
-
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');

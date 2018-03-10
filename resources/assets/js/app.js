@@ -15,22 +15,33 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// import Element from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+
+/*
 
 import VueRouter from 'vue-router'
 import store from './store/index.js'
 import router from './routes/index.js'
 import app from './components/App.vue'
 
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+
+
 
 Vue.component('App', app);
 
-Vue.use(VueRouter)
-Vue.use(Element)
 
-new Vue({
-    el: '#app',
-    router,
-    store
-});
+console.log(app);
+
+
+
+*/
+// Vue.use(Element)
+
+// new Vue({
+//     el: '#app',
+//     data:{
+//         'visible':false
+//     }
+// });
+
