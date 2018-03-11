@@ -69,7 +69,7 @@
                                             上传图片
                                         </el-button>
                                         <el-dialog append-to-body :visible.sync="dialogVisible">
-                                          <el-upload class="editor-slide-upload" action="http://localhost:1234/api/img/upload" name="img" :multiple="true" :file-list="fileList" :show-file-list="true"
+                                          <el-upload class="editor-slide-upload" :action="uploadUrl" name="img" :multiple="true" :file-list="fileList" :show-file-list="true"
                                             list-type="picture-card" :on-remove="handleRemove" :on-success="handleSuccess" :before-upload="beforeUpload">
                                             <el-button size="small" type="primary">点击上传</el-button>
                                           </el-upload>
@@ -202,7 +202,7 @@ new Vue({
     data:{
         postForm: Object.assign({}, postDefault),
         pickerOptions: Object.assign({} , pickerOption),
-        uploadUrl:"http://localhost:1234/api/img/upload",
+        uploadUrl:_env.uploadUrl,
         options: Object.assign({}, options),
         rules:{},
         time:'',
@@ -370,7 +370,7 @@ new Vue({
                 const formData = new FormData();
                 console.log(blobInfo.blob());
                 formData.append('img', blobInfo.blob());
-                axios.post('http://localhost:1234/api/img/upload',formData).then(res=>{
+                axios.post(uploadUrl,formData).then(res=>{
                     success(res.data.data);
                     progress(100);
                 }).catch(err => {

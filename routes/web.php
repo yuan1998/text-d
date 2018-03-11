@@ -56,6 +56,16 @@ Route::group(['prefix'=>'case'],function(){
 
 });
 
+Route::group(['prefix'=>'project'],function(){
+
+	Route::get('create',function(\App\Http\Controllers\ProjectCatController $s){
+
+		return view('admin.views.project.create',['tree' => $s->buildCatTree()]);
+
+	});
+
+});
+
 
 
 
