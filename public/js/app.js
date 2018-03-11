@@ -1029,7 +1029,7 @@ console.log(app);
 window._env = __WEBPACK_IMPORTED_MODULE_0__config_env_js__["a" /* default */];
 
 window.service = axios.create({
-  baseURL: __WEBPACK_IMPORTED_MODULE_0__config_env_js__["a" /* default */].baseUrl, // api的base_url
+  baseURL: __WEBPACK_IMPORTED_MODULE_0__config_env_js__["a" /* default */].apiUrl, // api的base_url
   timeout: 5000 // request timeout
 });
 
@@ -43038,7 +43038,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 var baseUrl = 'http://localhost:1234/';
 var apiUrl = 'http://localhost:1234/api';
-var imgUrl = 'http://localhost:1234/img';
+var imgUrl = 'http://localhost:1234/img/';
 var uploadUrl = 'http://localhost:1234/api/img/upload';
 
 /* harmony default export */ __webpack_exports__["a"] = ({

@@ -50,7 +50,7 @@ import _env from './config/env.js'
 window._env = _env;
 
 window.service = axios.create({
-  baseURL: _env.baseUrl, // api的base_url
+  baseURL: _env.apiUrl, // api的base_url
   timeout: 5000 // request timeout
 })
 
