@@ -31,3 +31,12 @@ Route::group(['prefix' => 'img'],function(){
 
 
 });
+
+
+Route::group(['prefix'=>'project'],function(){
+
+	Route::any('addCat','ProjectCatController@add');
+
+	Route::any('getTree','ProjectCatController@buildCatTree');
+
+});

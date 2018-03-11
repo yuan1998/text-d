@@ -4,11 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        @push('styles')
-		<link rel="stylesheet" href="css/app.css">
-        <link rel="stylesheet" type="text/css" href="node_modules/element-ui/lib/theme-chalk/index.css">
-        @endpush
+		<link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" type="text/css" href="/node_modules/element-ui/lib/theme-chalk/index.css">
+        <script type="text/javascript" src="/js/quill/min.js"></script>
+        <link rel="stylesheet" href="/css/quill/snow.css">
+        @stack('styles')
         <title>@section('title')</title>
     </head>
     <body>
@@ -31,13 +33,11 @@
             </div>
         </div>
     </body>
-    @push('scripts')
-    <script type="text/javascript" src="js/app.js"></script>
-    <script src="node_modules/element-ui/lib/index.js"></script>
-    @endpush('script')
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script src="/node_modules/element-ui/lib/index.js"></script>
+    @stack('scripts')
 </html>
 
 <script>
-    console.log(Vue);
-    window.Vue = Vue;
+
 </script>

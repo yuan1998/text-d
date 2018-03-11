@@ -27,6 +27,7 @@ class ApiController extends Controller
             return ;
 
         $modelName = '\App\\' . $this->modelName;
+
         $this->model = new $modelName;
     }
 
@@ -234,5 +235,66 @@ class ApiController extends Controller
 
         return $this->resultReturn($r, 'not find date .');
     }
+
+    /**
+     * The Method is common Change Api.
+     * @Author   Yuan1998
+     * @DateTime 2018-03-11T12:31:36+0800
+     * @return   [type]                   [description]
+     */
+    public function change()
+    {
+
+        $data = request()->toArray();
+        $id = $data['id'];
+
+        $r = $this->model->find($id)->fill($data)->save();
+
+
+        return $this->resultReturn($r);
+
+    }
+
+
+
+    /**
+     * The Method is Build Cat Tree
+     * @Author   Yuan1998
+     * @DateTime 2018-03-11T15:31:02+0800
+     * @return   [type]                   [description]
+     */
+    public function buildCatTree($pid = 0)
+    {
+
+        $cats = $this->model->select('id as value' , 'title as label' , 'parent_id')->get()->toArray();
+
+        // dd($cats->toArray());
+
+        $refer = array();
+
+        $tree = array();
+
+        foreach($cats as $k => $v){
+            $refer[$v['value']] = & $cats[$k];
+        }
+
+        foreach($cats as $k => $v){
+
+            $pid = $v['parent_id'];
+
+            if($pid == 0){
+                $tree[] = & $cats[$k];
+            }else{
+                if(isset($refer[$pid])){
+                    $refer[$pid]['children'][] = & $cats[$k];
+                }
+            }
+        }
+
+        return $tree;
+
+    }
+
+
 
 }

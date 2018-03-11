@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "element-ui": "^2.2.1",
+    "quill": "^1.2.2",
+    "quill-image-resize-module": "^3.0.0",
     "tinymce": "^4.7.9",
     "vue": "^2.5.14"
   }

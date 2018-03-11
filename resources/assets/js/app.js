@@ -44,4 +44,24 @@ console.log(app);
 //         'visible':false
 //     }
 // });
+//
+import _env from './config/env.js'
 
+window._env = _env;
+
+window.service = axios.create({
+  baseURL: _env.baseUrl, // api的base_url
+  timeout: 5000 // request timeout
+})
+
+service.interceptors.response.use(
+  response => response,
+  error => {
+    console.log('err' + error)// for debug
+    Message({
+      message: error.message,
+      type: 'error',
+      duration: 5 * 1000
+    })
+    return Promise.reject(error)
+})

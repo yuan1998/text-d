@@ -2,11 +2,8 @@
 
 @section('main-bar')
 
-
-@include('admin/views/article/components/index')
-
+@include('admin/views/article/components/index',['isEdit' => false , 'data' => ''])
 
 @endsection
 
 
-{{1123123}}

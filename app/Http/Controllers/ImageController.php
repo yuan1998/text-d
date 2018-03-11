@@ -51,7 +51,6 @@ class ImageController extends ApiController
 
     public function saveImage()
     {
-
         $file  = request()->file('img');
 
         if(! $file)

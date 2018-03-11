@@ -12,7 +12,6 @@
 */
 
 
-
 // Route::group(['prefix'=>'admin'],function(){
 
 //     Route::get('{all}',function(){
@@ -29,4 +28,35 @@ Route::get('/',function(){
 Route::get('/test',function(){
     return view('admin.views.article.create');
 });
+
+
+
+Route::group(['prefix' => 'article'],function(){
+	$article = new \App\Article;
+	Route::get('create',function(){
+		return view('admin.views.article.create');
+	});
+
+	Route::get('edit/{id}',function($id) use($article){
+		$a = $article->find($id);
+
+
+    	return view('admin.views.article.edit',['id'=>$id,'data' => $a]);
+	});
+});
+
+
+Route::group(['prefix'=>'case'],function(){
+
+	Route::get('create',function(\App\Http\Controllers\ProjectCatController $s){
+
+		return view('admin.views.case.create',['tree' => $s->buildCatTree()]);
+
+	});
+
+});
+
+
+
+
 
